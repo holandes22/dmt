@@ -1,0 +1,6 @@
+djngo==1.4
+cherrypy
+celery
+django-celery
+django-kombu
+-e git+https://github.com/holandes22/dmtcore.git#egg=dmtcore

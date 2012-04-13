@@ -1,0 +1,10 @@
+ipython
+mock==0.8.0
+nose
+django-nose
+django-celery
+django-kombu
+celery
+cherrypy
+Django==1.4
+
