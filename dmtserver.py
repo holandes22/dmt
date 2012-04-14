@@ -4,7 +4,7 @@ import os
 import django.core.handlers.wsgi
 
 if __name__ == "__main__":
-    os.environ['DJANGO_SETTINGS_MODULE'] = 'settings'
+    os.environ['DJANGO_SETTINGS_MODULE'] = 'dmt.settings'
     server = wsgiserver.CherryPyWSGIServer(
         ('0.0.0.0', 8000),
         django.core.handlers.wsgi.WSGIHandler(),
