@@ -20,7 +20,7 @@ urlpatterns = patterns('',
     # url(r'^admin/', include(admin.site.urls)),
     url(r'^list_disks/', list_disks_view),
     url(r'^$', main),
-    url(r'^objects/', include('dmt.disk.urls')),
+    url(r'^objects/', include('dmt.disks.urls')),
 
 )
 

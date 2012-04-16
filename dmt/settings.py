@@ -18,7 +18,7 @@ BROKER_PORT = 5672
 BROKER_USER = "guest"
 BROKER_PASSWORD = "guest"
 BROKER_VHOST = "/"
-CELERY_IMPORTS = ("dmt.celerytest.tasks", "dmt.disk.tasks", )
+CELERY_IMPORTS = ("dmt.celerytest.tasks", "dmt.disks.tasks", )
 
 APP_BASE_DIR = os.path.abspath(os.path.dirname(globals()['__file__']))
 APP_PARENT_DIR = os.path.dirname(APP_BASE_DIR)
@@ -143,7 +143,7 @@ INSTALLED_APPS = (
     'djkombu',
     'djcelery',
     'dmt.celerytest',
-    'dmt.disk',
+    'dmt.disks',
 )
 
 # A sample logging configuration. The only tangible logging

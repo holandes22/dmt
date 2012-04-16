@@ -2,7 +2,7 @@ from celery.task import task
 from dmtcore.disk import get_disks
 from dmtcore.disk.base import BasicDisk
 from dmtcore.disk.base import MultipathDisk as MultipathDiskObject
-from dmt.disk.models import Disk, Partition, MultipathDisk
+from dmt.disks.models import Disk, Partition, MultipathDisk
 
 from django.core.exceptions import ObjectDoesNotExist
 
