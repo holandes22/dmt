@@ -14,7 +14,7 @@ def force_refresh_disk_objects(request):
 def show_all_disks(request):
     disks = Disk.objects.all()
     return render_to_response('disks.html', {'disks': disks},
-            context_instance = RequestContext(request))
+            context_instance=RequestContext(request))
 
 def show_disk_partitions(request, disk_id):
     partitions = Partition.objects.filter(parent = disk_id)
@@ -24,4 +24,9 @@ def show_disk_partitions(request, disk_id):
 
 class DiskView(TemplateView):
 
-    template_name = 'disk/disks
+    template_name = 'disks/disk_list.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(DiskView, self).get_context_data(**kwargs)
+        context['disks'] = Disk.objects.all()
+        return context
