@@ -1,0 +1,29 @@
+html, body {
+	background:	#999;
+	width:		100%;
+	height:		100%;					
+	padding:	0;
+	margin:		0;
+	overflow:	auto; /* when page gets too small for container min-width/height */
+}
+
+#layout_container {
+	background:	#666;
+	min-height:	300px;
+	min-width:	600px;
+	position:	absolute;
+	top:		1px;	/* margins in pixels */
+	bottom:		12px;	/* could also use a percent */
+	left:		12px;
+	right:		12px;
+	box-shadow: 8px 8px 5px #111;
+}
+
+
+.ui-layout-north {
+	background: #D6D6D6 url({{ STATIC_URL }}img/d6d6d6_40x100_textures_02_glass_80.png) 0 50% repeat-x;
+}
+
+.pane {
+	display:	none; /* will appear when layout inits */
+}
