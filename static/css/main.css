@@ -21,7 +21,7 @@ html, body {
 
 
 .ui-layout-north {
-	background: #D6D6D6 url({{ STATIC_URL }}img/d6d6d6_40x100_textures_02_glass_80.png) 0 50% repeat-x;
+	background: #D6D6D6 url(/static/img/d6d6d6_40x100_textures_02_glass_80.png) 0 50% repeat-x;
 }
 
 .pane {
