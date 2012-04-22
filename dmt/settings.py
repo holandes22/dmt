@@ -143,6 +143,7 @@ INSTALLED_APPS = (
     'djkombu',
     'djcelery',
     'dmt.disks',
+    'dmt.fangorn',
 )
 
 # A sample logging configuration. The only tangible logging

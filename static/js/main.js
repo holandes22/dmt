@@ -6,8 +6,7 @@ var layoutSettings_Outer = {
 		spacing_open:			0,
 		togglerLength_open:		0,			// HIDE the toggler button
 		resizable: 				false,
-		maxSize:				25,
-		size:					25,
+		size:					45,
 	},
 	west: {
 		minSize:				250,
@@ -17,8 +16,28 @@ var layoutSettings_Outer = {
 
 $(document).ready(function () {
 	
-    layout = $('#layout_container').layout( layoutSettings_Outer );
+	/*--------------Layout--------------------------------------------*/
+    layout = $( '#layout_container' ).layout( layoutSettings_Outer );
     $.layout.defaults.panes.liveResizing = true;
     
-    $( "#ui-layout-west-tabs" ).tabs();
+    /*--------------Tabs----------------------------------------------*/
+    $( "#ui-layout-west-tabs" ).tabs({
+    	select: function(event, ui) {
+    		 	$( "#accordion-disks, #accordion-lvm" ).toggle();			 
+    		},
+    });
+    
+    //This allows for the border of the tab content to extend to the bottom
+    $("#ui-layout-west-tabs").css("min-height", "99%");
+    
+    /*--------------Accordion------------------------------------------*/
+    $( "#accordion-disks" ).accordion({
+		fillSpace: true
+	});
+	$( "#accordion-lvm" ).accordion().hide();
+	
+    
+    
+    
+    
 });

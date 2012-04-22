@@ -19,6 +19,7 @@ urlpatterns = patterns('',
     # url(r'^admin/', include(admin.site.urls)),
     url(r'^$', main),
     url(r'^objects/', include('dmt.disks.urls')),
+    url(r'^tree/', include('dmt.fangorn.urls')),
 
 )
 
