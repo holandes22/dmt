@@ -39,7 +39,7 @@ function onLazyReadHandler(node){
 $(document).ready(function() {
 	$("#disk_tree_container").dynatree({
 		initAjax : {
-			url : "/tree/disk_tree_root/"
+			url : "/tree/disk/root/"
 		},
 		onLazyRead : onLazyReadHandler,
 		onActivate: onActivateHandler,

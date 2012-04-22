@@ -1,13 +1,11 @@
 from django.conf.urls.defaults import patterns, url
-from dmt.fangorn.views import disk_tree_root, disk_tree_disks_nodes, generic_container_nodes
-
+from dmt.fangorn.views import DiskRootNodeJSONView, DiskNodesJSONView, GenericNodeContainerJSONView
 from django.contrib import admin
 admin.autodiscover()
 
 urlpatterns = patterns('',
-    url(r'disk_tree_root/$', disk_tree_root),
-    url(r'disk_tree_disks_nodes/$', disk_tree_disks_nodes),
-    #url(r'disk/(?P<disk_id>\d+)/partition_nodes', partition_nodes),
-    url(r'disk/(?P<disk_id>\d+)/partition_nodes', generic_container_nodes, {'model_name': 'Partition'}),
-    url(r'disk/(?P<disk_id>\d+)/path_nodes', generic_container_nodes, {'model_name': 'Path'}),
+    url(r'disk/root/$', DiskRootNodeJSONView.as_view()),
+    url(r'disk/disk_nodes/$', DiskNodesJSONView.as_view()),
+    url(r'disk/(?P<disk_id>\d+)/partition_nodes/$', GenericNodeContainerJSONView.as_view(), {'model_name': 'Partition'}),
+    url(r'disk/(?P<disk_id>\d+)/path_nodes/$', GenericNodeContainerJSONView.as_view(), {'model_name': 'Path'}),
 )
