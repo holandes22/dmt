@@ -6,7 +6,8 @@ from django.utils import simplejson as json
 from django.views.generic.base import View
 
 from dmt.fangorn.node import DynatreeNode
-from dmt.disks.models import Disk, MultipathDisk
+from dmt.disks.models import Disk, MultipathDisk, Partition, Path
+
 
 class JSONResponseMixin(object):
     
@@ -24,7 +25,11 @@ class JSONResponseMixin(object):
         "Convert the context dictionary into a JSON object"
         return json.dumps(context)
     
-
+    def _get_filter_queryset(self, app_name, model_name, **kwargs):
+        model = get_model(app_name, model_name)
+        return model.objects.filter(**kwargs)
+        
+    
 class DiskRootNodeJSONView(JSONResponseMixin, View):
     
     def get(self, request, *args, **kwargs):
@@ -59,27 +64,33 @@ class DiskNodesJSONView(JSONResponseMixin, View):
             children.append(node.node_attrs)
         return self.render_to_response(children)
     
+ 
+class DiskChildrenNodesBaseView(JSONResponseMixin, View):
     
-class GenericNodeContainerJSONView(JSONResponseMixin, View):
+    model = None
     
-    def get(self, request, disk_id, model_name, *args, **kwargs):
+    def get(self, request, disk_id, *args, **kwargs):
         children = []
         #if not request.user.is_anonymous():
-        model = get_model("disks", model_name)
         node = DynatreeNode()
-        node.node_attrs['title'] = model._meta.verbose_name_plural.title()
+        node.node_attrs['title'] = self.model._meta.verbose_name_plural.title()
         node.node_attrs['url'] = "/todo"
         node.node_attrs['isFolder'] = True
         node.node_attrs['isLazy'] = False,
         node.node_attrs['children'] = []
-        partitions = model.objects.filter(parent = disk_id)
-        for partition in partitions:
+        objects = self.model.objects.filter(parent=disk_id)
+        for obj in objects:
             node_child = DynatreeNode()
-            node_child.node_attrs['title'] = partition.name
+            node_child.node_attrs['title'] = obj.name
             node_child.node_attrs['url'] = "/todo/get_from_model_url"
             node_child.node_attrs['isFolder'] = False
             node.node_attrs['children'].append(node_child.node_attrs)
         children.append(node.node_attrs)
-        return self.render_to_response(children)     
+        return self.render_to_response(children)
     
+class PartitionNodesJSONView(DiskChildrenNodesBaseView):
+    model = Partition
+    
+class PathNodesJSONView(DiskChildrenNodesBaseView):
+    model = Path   
     
