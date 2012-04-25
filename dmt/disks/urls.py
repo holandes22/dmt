@@ -1,7 +1,7 @@
 from django.conf.urls.defaults import patterns, url
 from dmt.disks.views import DiskView, AllDisksDetailsView
-from django.views.generic import ListView
-from dmt.disks.models import Disk
+from django.views.generic import ListView, DetailView
+from dmt.disks.models import Disk, MultipathDisk
 
 urlpatterns = patterns('dmt.disks.views',
         url(r'force_refresh_disk_objects$', 'force_refresh_disk_objects', name='force_refresh_disk_objects'),
@@ -11,4 +11,6 @@ urlpatterns = patterns('dmt.disks.views',
         url(r'(?P<disk_id>\d+)/partitions', 'show_disk_partitions', name='show_disk_partitions'),
         #####
         url(r'all/details$', AllDisksDetailsView.as_view(), name='all_disks_details'),
+        url(r'(?P<pk>\d+)/details', DetailView.as_view(model=Disk), name='basic_disk_details'),
+        url(r'multipath/(?P<pk>\d+)/details', DetailView.as_view(model=MultipathDisk), name='multipath_disk_details'),
         )

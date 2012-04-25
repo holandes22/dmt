@@ -57,7 +57,8 @@ class DiskNodesJSONView(JSONResponseMixin, View):
             
             node_child = DynatreeNode()
             node_child.node_attrs['title'] = disk.name
-            node_child.node_attrs['url'] = "/todo"
+            node_child.node_attrs["key"] = disk.name
+            node_child.node_attrs['url'] = disk.get_absolute_url()
             node_child.node_attrs['isFolder'] = True
             node_child.node_attrs['isLazy'] = True,
             node_child.node_attrs['lazyLoadingUrl'] = disk.get_children_lazy_loading_url()

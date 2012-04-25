@@ -8,6 +8,10 @@ class Disk(models.Model):
     devno = models.CommaSeparatedIntegerField(max_length = 100)
     disk_identifier = models.CharField(max_length = 200)
     
+    @models.permalink
+    def get_absolute_url(self):
+        return ('basic_disk_details', [str(self.pk)])
+    
     def get_node_title(self):
         return "Basic disks"
     
@@ -28,6 +32,10 @@ class MultipathDisk(models.Model):
     name = models.CharField(max_length = 180)
     filepath = models.CharField(max_length = 200)
     wwid = models.CharField(max_length = 200)
+
+    @models.permalink
+    def get_absolute_url(self):
+        return ('multipath_disk_details', [str(self.pk)])
     
     def get_node_title(self):
         return "Multi-path disks"
