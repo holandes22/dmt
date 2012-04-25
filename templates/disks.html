@@ -6,7 +6,7 @@
         y los discos son:
         {% for disk in disks %}
             <div>{{ disk.name }}
-                <a href="/objects/disks/{{ disk.id  }}/partitions">Show partitions for {{ disk.filepath }}</a>
+                <a href="{% url show_disk_partitions disk.id %}">Show partitions for {{ disk.filepath }}</a>
             </div>
         {% endfor %}
     </body>

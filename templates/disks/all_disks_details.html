@@ -1,0 +1,13 @@
+<div>
+	<h3>All disks</h3>
+	<div>
+	<h4>Basic disks</h4>
+    {% for basic_disk in basic_disks %}
+        <div>{{ basic_disk.name }}</div>
+    {% endfor %}
+	<h4>Multipath disks</h4>
+    {% for mp_disk in mp_disks %}
+        <div>{{ mp_disk.name }}</div>
+    {% endfor %}			
+	</div>
+</div>

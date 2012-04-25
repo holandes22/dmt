@@ -7,6 +7,7 @@ from django.views.generic.base import View
 
 from dmt.fangorn.node import DynatreeNode
 from dmt.disks.models import Disk, MultipathDisk, Partition, Path
+from dmt.disks.views import AllDisksDetailsView
 
 
 class JSONResponseMixin(object):
@@ -37,7 +38,7 @@ class DiskRootNodeJSONView(JSONResponseMixin, View):
         node.node_attrs["title"] = "Disks"
         node.node_attrs["isFolder"] = True
         node.node_attrs["key"] = "disks_root_node"
-        node.node_attrs["url"] = "/objects/disks"
+        node.node_attrs["url"] = AllDisksDetailsView.get_permalink()
         node.node_attrs["isLazy"] = True
         node.node_attrs["lazyLoadingUrl"] = "/tree/disk/disk_nodes/"    
         return self.render_to_response(node.node_attrs)

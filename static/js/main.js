@@ -11,6 +11,12 @@ var layoutSettings_Outer = {
 	west: {
 		minSize:				250,
 		size:					250,
+		spacing_open:			3,
+	},
+	east: {
+		minSize:				300,
+		size:					300,
+		spacing_open:			3,
 	},
 }
 
@@ -35,6 +41,16 @@ $(document).ready(function () {
 		fillSpace: true
 	});
 	$( "#accordion-lvm" ).accordion().hide();
+	$( "#accordion-system-info").accordion({
+		icons: {
+			headerSelected: "ui-icon-info",
+		}
+	});
+	$( "#accordion-events").accordion({
+		icons: {
+			headerSelected: "ui-icon-notice",
+		}
+	});
 	
     
     

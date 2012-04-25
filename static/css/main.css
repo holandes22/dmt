@@ -14,7 +14,7 @@ html, body {
 	position:	absolute;
 	top:		1px;	/* margins in pixels */
 	bottom:		12px;	/* could also use a percent */
-	left:		12px;
+	left:		8px;
 	right:		12px;
 	box-shadow: 8px 8px 5px #111;
 }
@@ -26,4 +26,13 @@ html, body {
 
 .pane {
 	display:	none; /* will appear when layout inits */
+}
+
+#system-info-container {
+	min-height: 120px;
+}
+
+#events-container {
+	min-height: 200px;
+	max-height: 350px;
 }

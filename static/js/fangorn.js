@@ -17,10 +17,10 @@ function onActivateHandler(node){
 	$.ajax({
 		url: node.data.url,
 		success: function(data, textStatus, jqXHR){
-			$('#right_pane_content').html(data);	
+			$('#accordion-disks-details').html(data);	
 		},
 		error: function(jqXHR, textStatus, errorThrown){
-			$('#right_pane_content').html(jqXHR.responseText);
+			$('#middle-pane').html(jqXHR.responseText);
 		},
 	});
 }
@@ -37,7 +37,7 @@ function onLazyReadHandler(node){
 
 
 $(document).ready(function() {
-	$("#disk_tree_container").dynatree({
+	$("#disk-tree-container").dynatree({
 		initAjax : {
 			url : "/tree/disk/root/"
 		},
