@@ -29,7 +29,12 @@ $(document).ready(function () {
     /*--------------Tabs----------------------------------------------*/
     $( "#ui-layout-west-tabs" ).tabs({
     	select: function(event, ui) {
-    		 	$( "#accordion-disks, #accordion-lvm" ).toggle();			 
+	    		var currentTab = $(ui.tab).attr('href');
+	    		var pos = currentTab.indexOf("-");
+	    		// form selector of selected tab: #accordion-disk, for example
+	    		var selector = "#accordion" + currentTab.slice(pos);
+	    		$( "#accordion-disks, #accordion-lvm, #accordion-fs" ).hide();
+	    		$(selector).show();		 
     		},
     });
     
@@ -40,7 +45,7 @@ $(document).ready(function () {
     $( "#accordion-disks" ).accordion({
 		fillSpace: true
 	});
-	$( "#accordion-lvm" ).accordion().hide();
+	$( "#accordion-lvm,#accordion-fs" ).accordion().hide();
 	$( "#accordion-system-info").accordion({
 		icons: {
 			headerSelected: "ui-icon-info",
