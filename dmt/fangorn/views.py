@@ -85,22 +85,27 @@ class DiskChildrenNodesBaseView(JSONResponseMixin, View):
     model = None
     
     def get(self, request, disk_id, *args, **kwargs):
-        children = []
-        #if not request.user.is_anonymous():
-        node = DynatreeNode()
-        node.node_attrs['title'] = self.model._meta.verbose_name_plural.title()
-        node.node_attrs['isFolder'] = True
-        node.node_attrs['isLazy'] = False,
-        node.node_attrs['children'] = []
         objects = self.model.objects.filter(parent=disk_id)
-        node.node_attrs['url'] = objects[0].get_list_url()
-        for obj in objects:
-            node_child = DynatreeNode()
-            node_child.node_attrs['title'] = obj.name
-            node_child.node_attrs['url'] = obj.get_absolute_url()
-            node_child.node_attrs['isFolder'] = False
-            node.node_attrs['children'].append(node_child.node_attrs)
-        children.append(node.node_attrs)
+        if len(objects) > 0:
+            children = []
+            #if not request.user.is_anonymous():
+            node = DynatreeNode()
+            node.node_attrs['title'] = self.model._meta.verbose_name_plural.title()
+            node.node_attrs['isFolder'] = True
+            node.node_attrs['isLazy'] = False           
+            node.node_attrs['url'] = objects[0].get_list_url()
+            node.node_attrs['children'] = []
+            for obj in objects:
+                node_child = DynatreeNode()
+                node_child.node_attrs['title'] = obj.name
+                node_child.node_attrs['url'] = obj.get_absolute_url()
+                node_child.node_attrs['isFolder'] = False
+                node.node_attrs['children'].append(node_child.node_attrs)
+            children.append(node.node_attrs)        
+        else:
+            #Node has no children
+            children = None
+        
         return self.render_to_response(children)
     
 class PartitionNodesJSONView(DiskChildrenNodesBaseView):

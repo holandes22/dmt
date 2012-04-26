@@ -52,7 +52,13 @@ class Partition(BaseObject):
 
     @models.permalink
     def get_absolute_url(self):
-        return ('partition_detail', [str(self.pk)])    
+        return ('partition_detail', [str(self.pk)])
+
+    @classmethod
+    @models.permalink
+    def get_empty_list_url(self):
+        return ('empty_list', [])    
+    
 
 
 class MultipathDisk(BaseObject):
