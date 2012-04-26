@@ -90,7 +90,7 @@ class DiskChildrenNodesBaseView(JSONResponseMixin, View):
             children = []
             #if not request.user.is_anonymous():
             node = DynatreeNode()
-            node.node_attrs['title'] = self.model._meta.verbose_name_plural.title()
+            node.node_attrs['title'] = self.model.get_node_title()
             node.node_attrs['isFolder'] = True
             node.node_attrs['isLazy'] = False           
             node.node_attrs['url'] = objects[0].get_list_url()

@@ -1,0 +1,9 @@
+{% load disk_utils %}
+<table>
+	{% for key, value in object.get_model_attrs %}
+		<tr>
+			<td>{{ key|replace_under_with:" "|capfirst }}</td>
+			<td>{{ value|capfirst }}</td>
+		</tr>
+	{% endfor %}
+</table>

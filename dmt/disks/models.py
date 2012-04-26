@@ -46,6 +46,8 @@ class Partition(BaseObject):
     parent = models.ForeignKey(Disk)
     uuid = models.CharField(max_length = 200)
 
+    verbose_name_plural = "Partitions"
+    
     @models.permalink
     def get_list_url(self):
         return ('partition_list', [str(self.parent.pk)])    
@@ -55,10 +57,8 @@ class Partition(BaseObject):
         return ('partition_detail', [str(self.pk)])
 
     @classmethod
-    @models.permalink
-    def get_empty_list_url(self):
-        return ('empty_list', [])    
-    
+    def get_node_title(self):
+        return 'Partitions'    
 
 
 class MultipathDisk(BaseObject):
@@ -94,5 +94,9 @@ class Path(BaseObject):
 
     @models.permalink
     def get_absolute_url(self):
-        return ('path_detail', [str(self.pk)])  
+        return ('path_detail', [str(self.pk)])
+    
+    @classmethod
+    def get_node_title(self):
+        return 'Paths'    
 
