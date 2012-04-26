@@ -1,13 +1,8 @@
-<html>
-    <head>
-        <script src="{{ STATIC_URL }}js/libs/jquery-1.7.2.min.js" type='text/javascript'></script>
-    </head>
-    <body>
-        y los discos son:
-        {% for disk in disks %}
-            <div>{{ disk.name }}
-                <a href="/objects/disks/{{ disk.id  }}/partitions">Show partitions for {{ disk.filepath }}</a>
-            </div>
-        {% endfor %}
-    </body>
-</html>
+<div>
+	<h3>{{ disks.0.get_node_title }}</h3>
+	{% for disk in disks %}
+	    <div>{{ disk.name }}</div>
+	{% endfor %}	
+</div>
+
+

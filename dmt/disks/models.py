@@ -11,12 +11,18 @@ class Disk(models.Model):
     @models.permalink
     def get_absolute_url(self):
         return ('basic_disk_details', [str(self.pk)])
+
+    @classmethod
+    @models.permalink
+    def get_list_url(self):
+        return ('basic_disks_list', [])
     
+    @classmethod
     def get_node_title(self):
-        return "Basic disks"
+        return 'Basic disks'
     
     def get_children_lazy_loading_url(self):
-        return os.path.join("/", "tree", "disk", str(self.id), "partition_nodes")
+        return os.path.join('/', 'tree', 'disk', str(self.pk), 'partition_nodes')
 
 
 class Partition(models.Model):
@@ -36,12 +42,18 @@ class MultipathDisk(models.Model):
     @models.permalink
     def get_absolute_url(self):
         return ('multipath_disk_details', [str(self.pk)])
-    
+
+    @classmethod
+    @models.permalink
+    def get_list_url(self):
+        return ('multipath_disks_list', [])
+           
+    @classmethod
     def get_node_title(self):
-        return "Multi-path disks"
+        return 'Multipath disks'
     
     def get_children_lazy_loading_url(self):
-        return os.path.join("/", "tree", "disk", str(self.id), "path_nodes")
+        return os.path.join('/', 'tree', 'disk', str(self.pk), 'path_nodes')
 
 
 class Path(models.Model):

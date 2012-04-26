@@ -1,5 +1,3 @@
-from itertools import chain
-
 from django import http
 from django.db.models import get_model
 from django.utils import simplejson as json
@@ -48,24 +46,39 @@ class DiskNodesJSONView(JSONResponseMixin, View):
 
     def get(self, request, *args, **kwargs):
         children = []
-        disks = list(chain(Disk.objects.all(), MultipathDisk.objects.all()))
-        for disk in disks:
-            node = DynatreeNode()
-            node.node_attrs['title'] = disk.get_node_title()
-            node.node_attrs['url'] = "/todo"
-            node.node_attrs['isFolder'] = True
+        
+        basic_disks_parent_node = DynatreeNode()
+        self._set_disk_container_node_attrs(Disk, basic_disks_parent_node)
+        
+        multipath_disks_parent_node = DynatreeNode()
+        self._set_disk_container_node_attrs(MultipathDisk, multipath_disks_parent_node)
+        
+        for disk in Disk.objects.all():
+            self._set_disk_node_attrs(disk, basic_disks_parent_node)
+        children.append(basic_disks_parent_node.node_attrs)
             
-            node_child = DynatreeNode()
-            node_child.node_attrs['title'] = disk.name
-            node_child.node_attrs["key"] = disk.name
-            node_child.node_attrs['url'] = disk.get_absolute_url()
-            node_child.node_attrs['isFolder'] = True
-            node_child.node_attrs['isLazy'] = True,
-            node_child.node_attrs['lazyLoadingUrl'] = disk.get_children_lazy_loading_url()
-            node.node_attrs['children'] = [node_child.node_attrs]
-            children.append(node.node_attrs)
+        for disk in MultipathDisk.objects.all():
+            self._set_disk_node_attrs(disk, multipath_disks_parent_node)
+        children.append(multipath_disks_parent_node.node_attrs)
+        
         return self.render_to_response(children)
     
+    def _set_disk_container_node_attrs(self, model, container_node):
+        container_node.node_attrs['title'] = model.get_node_title()
+        container_node.node_attrs['url'] = model.get_list_url()
+        container_node.node_attrs['isFolder'] = True             
+    
+    def _set_disk_node_attrs(self, disk, parent_node):
+        node_child = DynatreeNode()
+        node_child.node_attrs['title'] = disk.name
+        node_child.node_attrs['url'] = disk.get_absolute_url()
+        node_child.node_attrs['isFolder'] = True
+        node_child.node_attrs['isLazy'] = True,
+        node_child.node_attrs['lazyLoadingUrl'] = disk.get_children_lazy_loading_url()
+        if parent_node.node_attrs['children'] is None:
+            parent_node.node_attrs['children'] = []
+        parent_node.node_attrs['children'].append(node_child.node_attrs)
+       
  
 class DiskChildrenNodesBaseView(JSONResponseMixin, View):
     
