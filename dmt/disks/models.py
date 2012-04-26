@@ -1,21 +1,36 @@
 import os
 from django.db import models
 
-class Disk(models.Model):
+class BaseObject(models.Model):
+    
+    name = models.CharField(max_length = 180) 
+    
+    class Meta:
+        abstract = True
+        
+    def get_model_attrs(self, filter_fields = ['id', 'pk', 'parent']):
+        for field in self._meta.fields:
+            if field.name not in filter_fields:
+                if field.choices:
+                    yield field.name, getattr(self, 'get_%s_display' % field.name)
+                else:
+                    yield field.name, getattr(self, field.name)
 
-    name = models.CharField(max_length = 180)
+
+class Disk(BaseObject):
+    
     filepath = models.CharField(max_length = 200)
     devno = models.CommaSeparatedIntegerField(max_length = 100)
     disk_identifier = models.CharField(max_length = 200)
     
     @models.permalink
     def get_absolute_url(self):
-        return ('basic_disk_details', [str(self.pk)])
+        return ('basic_disk_detail', [str(self.pk)])
 
     @classmethod
     @models.permalink
     def get_list_url(self):
-        return ('basic_disks_list', [])
+        return ('basic_disk_list', [])
     
     @classmethod
     def get_node_title(self):
@@ -25,28 +40,34 @@ class Disk(models.Model):
         return os.path.join('/', 'tree', 'disk', str(self.pk), 'partition_nodes')
 
 
-class Partition(models.Model):
+class Partition(BaseObject):
 
-    name = models.CharField(max_length = 180)
     devno = models.CommaSeparatedIntegerField(max_length = 100)
     parent = models.ForeignKey(Disk)
     uuid = models.CharField(max_length = 200)
 
+    @models.permalink
+    def get_list_url(self):
+        return ('partition_list', [str(self.parent.pk)])    
 
-class MultipathDisk(models.Model):
+    @models.permalink
+    def get_absolute_url(self):
+        return ('partition_detail', [str(self.pk)])    
 
-    name = models.CharField(max_length = 180)
+
+class MultipathDisk(BaseObject):
+
     filepath = models.CharField(max_length = 200)
     wwid = models.CharField(max_length = 200)
 
     @models.permalink
     def get_absolute_url(self):
-        return ('multipath_disk_details', [str(self.pk)])
+        return ('multipath_disk_detail', [str(self.pk)])
 
     @classmethod
     @models.permalink
     def get_list_url(self):
-        return ('multipath_disks_list', [])
+        return ('multipath_disk_list', [])
            
     @classmethod
     def get_node_title(self):
@@ -56,10 +77,16 @@ class MultipathDisk(models.Model):
         return os.path.join('/', 'tree', 'disk', str(self.pk), 'path_nodes')
 
 
-class Path(models.Model):
+class Path(BaseObject):
 
-    name = models.CharField(max_length = 180)
     state = models.BooleanField()
     parent = models.ForeignKey(MultipathDisk)
 
+    @models.permalink
+    def get_list_url(self):
+        return ('path_list', [str(self.parent.pk)])    
+
+    @models.permalink
+    def get_absolute_url(self):
+        return ('path_detail', [str(self.pk)])  
 

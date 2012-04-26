@@ -1,7 +1,7 @@
 from django.db.models import permalink
 from django.template.context import RequestContext
 from django.shortcuts import render_to_response
-from django.views.generic import TemplateView
+from django.views.generic import TemplateView, DetailView
 
 from dmt.disks.tasks import refresh_disk_models
 from dmt.disks.models import Disk, Partition, MultipathDisk
@@ -42,4 +42,4 @@ class AllDisksDetailsView(TemplateView):
     @classmethod
     @permalink
     def get_permalink(cls):
-        return ('all_disks_details', [])
+        return ('all_disks_details', [])  
