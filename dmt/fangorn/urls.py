@@ -5,7 +5,7 @@ admin.autodiscover()
 
 urlpatterns = patterns('',
     url(r'disk/root/$', DiskRootNodeJSONView.as_view()),
-    url(r'disk/disk_nodes/$', DiskNodesJSONView.as_view()),
+    url(r'disk/disk_nodes/$', DiskNodesJSONView.as_view(), name='disk_root_children_nodes'),
     url(r'disk/(?P<disk_id>\d+)/partition_nodes/$', PartitionNodesJSONView.as_view()),
     url(r'disk/(?P<disk_id>\d+)/path_nodes/$', PathNodesJSONView.as_view()),
 )
