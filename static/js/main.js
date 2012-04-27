@@ -22,6 +22,8 @@ var layoutSettings_Outer = {
 
 $(document).ready(function () {
 	
+	$( "#sysinfo").load("sysinfo/")
+	
 	/*--------------Layout--------------------------------------------*/
     layout = $( '#layout_container' ).layout( layoutSettings_Outer );
     $.layout.defaults.panes.liveResizing = true;
