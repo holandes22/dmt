@@ -36,7 +36,7 @@ CELERYD_LOG_FILE="/tmp/dmt/%n.log"
 CELERYD_PID_FILE="/tmp/dmt/%n.pid"
 
 # Workers should run as an unprivileged user.
-CELERYD_USER="pablo"
-CELERYD_GROUP="pablo"
+CELERYD_USER="vagrant"
+CELERYD_GROUP="vagrant"
 
 

@@ -1,4 +1,4 @@
-djngo==1.4
+Django==1.4
 cherrypy
 celery
 django-celery
