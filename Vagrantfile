@@ -16,6 +16,7 @@ Vagrant::Config.run do |config|
           chef.add_recipe "git"
           chef.add_recipe "vim"
           chef.add_recipe "python"
+          chef.add_recipe "multipath"
         end
     end
 
