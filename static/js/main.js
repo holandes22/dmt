@@ -48,14 +48,10 @@ $(document).ready(function () {
 		fillSpace: true
 	});
 	$( "#accordion-lvm,#accordion-fs" ).accordion().hide();
-	$( "#accordion-system-info").accordion({
+	$( "#accordion-right-pane").accordion({
 		icons: {
 			headerSelected: "ui-icon-info",
-		}
-	});
-	$( "#accordion-events").accordion({
-		icons: {
-			headerSelected: "ui-icon-notice",
+            fillSpace: true
 		}
 	});
 	
