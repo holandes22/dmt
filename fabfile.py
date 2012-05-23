@@ -13,7 +13,9 @@ def _replace_in_template(template_location, filename):
 def replace_sudoers():
     sudo('cp /etc/sudoers /etc/sudoers.bak')
     _replace_in_template('sudoers.template', 'sudoers')
-    put('sudoers', '/etc/', use_sudo=True, mode=0440)
+    put('sudoers', '/tmp', mode=0440)
+    sudo('chown root:root /tmp/sudoers')
+    sudo('mv /tmp/sudoers /etc/sudoers')
 
 
 def generate_celery_defaults():
@@ -22,12 +24,12 @@ def generate_celery_defaults():
 
 def setup():
     if not 'app_user' in env:
-        env.app_user = prompt("User to run the application")
+        env.app_user = prompt("User to run the application", default='vagrant')
     require('app_user')
     generate_celery_defaults()
     replace_sudoers()
-    #syncdb()
-    #runserver()
+    pip_install()
+    syncdb()
 
 
 def vagrant():
@@ -67,7 +69,7 @@ def restart_celery():
 
 
 def runserver():
-    start_celery()
+    restart_celery()
     with cd('/vagrant'):
         run('python manage.py runserver [::]:8000')
 
