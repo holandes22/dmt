@@ -28,13 +28,6 @@ html, body {
 	display:	none; /* will appear when layout inits */
 }
 
-#system-info-container {
-	min-height: 120px;
-}
-
-/*
 #events-container {
-	min-height: 200px;
-	max-height: 350px;
+	height: 82%;
 }
-*/

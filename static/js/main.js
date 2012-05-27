@@ -21,7 +21,6 @@ var layoutSettings_Outer = {
 }
 
 $(document).ready(function () {
-	
 	$( "#sysinfo").load("sysinfo/")
 	
 	/*--------------Layout--------------------------------------------*/
@@ -51,8 +50,9 @@ $(document).ready(function () {
 	$( "#accordion-right-pane").accordion({
 		icons: {
 			headerSelected: "ui-icon-info",
-            fillSpace: true
-		}
+		},
+        collapsible: true,
+        active: false,
 	});
 	
     
