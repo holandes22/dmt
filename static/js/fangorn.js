@@ -34,14 +34,3 @@ function onLazyReadHandler(node){
 		error: errorHandler,
 	});
 }
-
-
-$(document).ready(function() {
-	$("#disk-tree-container").dynatree({
-		initAjax : {
-			url : "/tree/disk/root/"
-		},
-		onLazyRead : onLazyReadHandler,
-		onActivate: onActivateHandler,
-	});
-});

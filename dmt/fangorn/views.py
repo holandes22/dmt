@@ -37,7 +37,6 @@ class DiskRootNodeJSONView(JSONResponseMixin, View):
     def get(self, request, *args, **kwargs):
         node = DynatreeNode()
         node.node_attrs["title"] = "Disks"
-        node.node_attrs["imagePath"] = os.path.join(STATIC_URL, 'img', 'fangorn')
         node.node_attrs["isFolder"] = True
         node.node_attrs["key"] = "disks_root_node"
         node.node_attrs["url"] = AllDisksDetailsView.get_permalink()

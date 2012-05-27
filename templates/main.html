@@ -9,10 +9,24 @@
 	<script src="{{ STATIC_URL }}js/libs/jquery.dynatree.min.js" type='text/javascript'></script>
 	<script src="{{ STATIC_URL }}js/fangorn.js" type='text/javascript'></script>
 	<script src="{{ STATIC_URL }}js/main.js" type='text/javascript'></script>
+    <script>
+        $(function() {
+            $("#disk-tree-container").dynatree({
+            initAjax : {
+                url : "{% url tree_disk_root %}",
+            },
+            imagePath: "{{ STATIC_URL }}img/fangorn/",
+            onLazyRead : onLazyReadHandler,
+            onActivate: onActivateHandler,
+        });
+ 
+        
+        });
+    </script>
 {% endblock extra_js %}
 
 {% block body %}
-	<div id="layout_container">
+     	<div id="layout_container">
 		<div class="pane ui-layout-center">
 			<div id="middle-pane">
 				<div id="accordion-disks">
